@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		registration
+	</title>
+</head>
+<body>
+
+<form method="POST">
+	{% csrf_token %}
+
+	</label>
+	{% if form %}
+	
+	{{ form}}
+	<button type="submit"  class="btn btn-success" value="Register" id="submit"> Sign Up</button>
+	{{error}}
+
+	{% endif %}
+
+	</label>
+</form>
+
+
+
+</body>
+</html>

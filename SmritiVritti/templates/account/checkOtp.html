@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>otp conformation</title>
+</head>
+<body>
+	{% if message %}
+	<form action="{% url 'account:conform_otp' %}" method="POST">
+		{% csrf_token %}
+		enter otp :<input type="text" name="otp">
+		<button type="submit" name="submit" value="submit"></button>
+	</form>
+	{% endif %}
+
+</body>
+</html>
