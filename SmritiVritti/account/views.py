@@ -10,6 +10,10 @@ from .tokens import account_activation_token
 from .models import User
 from django.core.mail import EmailMessage
 import requests
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
+from . custom_decorator import *
+	
 # Create your views here.
 def registration(request,templates='account/registration.html'):
 	
@@ -116,6 +120,11 @@ def conform_otp(request):
 		if user and status.get('Status') == 'Success':
 			user.is_active = True
 			user.save()
+			new_group, created = Group.objects.get_or_create(name ='staff')
+			user.groups.add(new_group)
+			
+			
+
 			#login(request, user)
 		# return redirect('home')
 			return HttpResponse('Thank you for your mobile no is verified. Now you can login your account.')
@@ -124,3 +133,32 @@ def conform_otp(request):
 			return HttpResponse('Activation link is invalid!')
 
 
+def Login(request,templates='account/registration.html'):
+	if request.method == 'POST':
+
+		email_or_phone = request.POST.get('email_or_phone')
+		password = request.POST.get('password')
+		print('hello')
+		user =  authenticate(username=email_or_phone,password = password)
+		print('hello')
+		print(user.is_active)
+		#@group_required('level0')
+		print(user)
+		if user  and user.is_active :
+
+			try:
+				login(request, user)
+				print('hello')
+				return HttpResponse('user login sucessfully')
+			except e:
+				return HttpResponse('user can not sucessfully')
+
+	
+		return HttpResponse('user not exist')
+	else:
+		return render(request,templates,{'form':None})
+@group_required('staff')
+def d(request):
+	return HttpResponse('welocme')
+
+	

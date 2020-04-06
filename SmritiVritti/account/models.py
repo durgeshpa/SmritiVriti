@@ -127,6 +127,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 	objects = UserManager()
 
 	USERNAME_FIELD = 'username'
+	class Meta:
+		permissions  =(('can upload mp3','for provide mp3'),
+			          ("can_listion mp3", "only user can listen"),)
 	#REQUIRED_FIELDS = []
 	#AUTH_USER_MODE
 

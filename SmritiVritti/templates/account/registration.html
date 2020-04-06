@@ -6,20 +6,32 @@
 	</title>
 </head>
 <body>
-
+{% if form %}
 <form method="POST">
 	{% csrf_token %}
 
-	</label>
-	{% if form %}
+	
+
 	
 	{{ form}}
 	<button type="submit"  class="btn btn-success" value="Register" id="submit"> Sign Up</button>
 	{{error}}
+</form>
 
-	{% endif %}
+	{% else %} 
+	  <form method="POST" >
+	{% csrf_token %}
+	
+	
+	
+	email_or_phone :<input type="text" name="email_or_phone" >
 
-	</label>
+	password: <input type="password" name="password">
+	<button type="submit"  class ="btn btn-success" value="Register" id="submit"> Sign Up</button>
+
+{% endif %}
+	
+
 </form>
 
 
